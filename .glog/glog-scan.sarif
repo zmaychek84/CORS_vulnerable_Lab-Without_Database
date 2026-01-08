@@ -1,0 +1,91 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Glog.AI",
+          "organization": "Glog.AI",
+          "fullName": "Glog, Making software more secure",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "informationUri": "https://www.glog.ai",
+          "rules": [
+            {
+              "id": "9ff037cc-771f-3722-af6c-49fa0c89a9b8",
+              "name": "High-Risk Dockerfile Vulnerability: Lack of Non-Root User Specification",
+              "helpUri": "https://www.glog.ai/",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nIn Docker, if no user is specified, the container runs with root privileges by default. This is a high-risk vulnerability known as \"Lack of Non-Root User Specification\". If an attacker manages to break out from the container, they could gain root access to the Docker host.\n\n## Security Concern\n\nRunning Docker containers as root is a security concern because it allows a process to gain escalated permissions on the host machine if it breaks out of the container. This could lead to unauthorized access, data leakage, or even a complete system takeover.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to always run your Docker containers as a non-root user. This can be achieved by creating a new user in your Dockerfile and switching to that user before executing any commands.\n\n## Source Code Fix Recommendation\n\nHere is a fix for the provided Dockerfile:\n\n```Dockerfile\nFROM php:7.2-apache\n\n# Create a new user 'nonroot' and switch to it\nRUN useradd -m nonroot\nUSER nonroot\n```\n\nIn this Dockerfile, the `useradd -m nonroot` command creates a new user named 'nonroot', and the `USER nonroot` command switches to that user.\n\n## Library Dependencies\n\nThe provided Dockerfile is based on the `php:7.2-apache` image, which includes Apache and PHP 7.2. No additional library dependencies are required for this Dockerfile to execute properly.\n\n## References\n\n- [CWE-250: Execution with Unnecessary Privileges](https://cwe.mitre.org/data/definitions/250.html)\n\nPlease note that the links provided are valid and active for anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "cwe": [
+                  {
+                    "id": "CWE-250",
+                    "url": "https://cwe.mitre.org/data/definitions/250.html"
+                  }
+                ],
+                "severity": "HIGH",
+                "kind": "FAIL",
+                "tags": [
+                  "CWE-250"
+                ]
+              }
+            }
+          ],
+          "language": "en-US",
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "isComprehensive": false
+        }
+      },
+      "language": "en-US",
+      "results": [
+        {
+          "ruleId": "9ff037cc-771f-3722-af6c-49fa0c89a9b8",
+          "kind": "fail",
+          "level": "error",
+          "message": {
+            "text": "High-Risk Dockerfile Vulnerability: Lack of Non-Root User Specification"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Dockerfile",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1,
+                  "snippet": {
+                    "text": "FROM php:7.2-apache"
+                  }
+                }
+              },
+              "message": {
+                "text": "Dockerfile"
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "glog-pfp-ruleFileLineCode/v1": "e51ccf22f4ad83de36444babef42a4651ecfb1889a39a3c531fb033e547ba959",
+            "glog-pfp-ruleFileCode/v1": "81f3e9957055f587659e10e4abcedbfcfc3b1f7a396f9d02da996f6c0d7845d1"
+          },
+          "fingerprints": {
+            "glog-fp-ruleFileCode/v1": "81f3e9957055f587659e10e4abcedbfcfc3b1f7a396f9d02da996f6c0d7845d1"
+          }
+        }
+      ],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ]
+    }
+  ]
+}
